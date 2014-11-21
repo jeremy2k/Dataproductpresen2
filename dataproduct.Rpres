@@ -1,0 +1,53 @@
+
+
+
+Course Project - Iris Species Prediction
+========================================================
+author: Jeremy
+date: 2014-11-22
+
+Introduction
+========================================================
+
+This Shiny application provides iris species prediction based on the machine learning package caret in R. The web application is deployed on [**shinyapps.io**](https://jeremy2k.shinyapps.io/shinyproject) and everyone can try it straight forward as follows: 
+
+1. Input the iris information (sepal length, sepal width, petal length, petal width) in the input textbox on the left.  					  
+2. Then click the submit button below.
+3. This web application will automatically predict the corresponding iris species and return the results in bottom of the main panel. 
+
+
+Training Data
+========================================================
+The training data is based on the iris data in R. And first let's do some exploratory analysis of all the variables in the figure on the right:
+
+***
+
+```{r, echo=FALSE}
+data(iris)
+plot(iris)
+```
+
+Machine Learning Algorithm
+========================================================
+The prediction algorithm implemented on Shiny server side is decision tree. The final decision tree model is shown below:
+```{r, echo=FALSE}
+library(caret)
+library(rpart)
+data(iris)
+modfit_tree<-train(Species~.,method="rpart",data=iris)
+modfit_tree$finalModel
+```
+
+Discussion
+=======================================================
+
+More complicated models are not used here due to the performance concern of all the web applications. Since it is impossilbe to keep users waiting for a long time before they can see the final results. Fianlly the prediction error details are attached as follows:
+
+
+```{r, echo=FALSE}
+library(caret)
+library(rpart)
+data(iris)
+modfit_tree<-train(Species~.,method="rpart",data=iris)
+modfit_tree$results
+```
